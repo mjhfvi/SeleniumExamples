@@ -1,3 +1,5 @@
 *.zip
 *.exe
 chrome-win64/
+test*
+__pycache__
