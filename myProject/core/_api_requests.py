@@ -7,6 +7,8 @@ from termcolor import colored
 def test_api(SITE_URL):
     try:
         response = requests.get(SITE_URL, timeout=10)  # , verify=False
+        # print(response)
+        # print(SITE_URL)
         # print(response.status_code)
 
         if response.status_code == 200:

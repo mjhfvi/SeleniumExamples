@@ -1,3 +1,4 @@
+''' chrome driver folder, TBD '''
 from __future__ import annotations
 
 import sys
@@ -11,12 +12,12 @@ from selenium.webdriver.chrome.service import Service
 
 # CHROME_PATH = 'C:/repository/SeleniumExamples/chromedriver.exe'
 CHROME_PATH = 'C:/repository/SeleniumExamples/myProject/tools/chromedriver.exe'
+USER_DATA_DIR = 'C:/Temp/SeleniumChromeProfile'
 # --------------- constants --------------- #
 
 
 def _driver():
-    ''' Help chrome_driver Module:
-    no arg yet, TBD ...'''
+    ''' Help chrome_driver Module: no arg yet, TBD ...'''
     from selenium import webdriver
     chrome_options = Options()
     chrome_service = Service(CHROME_PATH)
@@ -27,7 +28,7 @@ def _driver():
     chrome_options.add_argument('--no-default-browser-check')
     # bypass certificate errors to HTTPS or self-signed certs
     chrome_options.add_argument('--ignore-certificate-errors')
-    chrome_options.add_argument('--headless=new')  # disable starting browser
+    # chrome_options.add_argument('--headless=new')  # disable starting browser
     # chrome_options.add_argument('--disable-dev-shm-usage') # disable shared memory, for Linux
     # chrome_options.add_argument('--remote-debugging-pipe=chrome_pipe')  #  debug Chrome remotely
     # chrome_options.add_argument('--remote-debugging-port=9222')  #  debug Chrome remotely
@@ -37,6 +38,8 @@ def _driver():
     chrome_options.add_argument('--disable-default-apps')
     # specify the directory where user profiles are stored
     chrome_options.add_argument('--profile-directory=Default')
+    chrome_options.add_argument('--allow-insecure-localhost')
+    chrome_options.add_argument('--lang=en-US')
     chrome_options.add_argument('--user-data-dir=C:/Temp/SeleniumChromeProfile')
     chrome_options.add_argument('--start-maximized')
     chrome_options.page_load_strategy = 'normal'
@@ -50,15 +53,4 @@ def _driver():
 
 if __name__ == '__main__':
     help(sys.modules['__main__'])
-
-# print("this is print of name: {}".format(__name__))
-# print(f"this is print of name: {__name__}")
-# print(__main__)
-# help(chrome_driver)
-# help(webdriver)
-# help(sys)
-
-# chrome_element = chrome_driver()
-# chrome_element.get('https://www.google.com/')
-
-# chrome_element.quit()
+    sys.exit()
