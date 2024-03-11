@@ -90,11 +90,13 @@ repos:
       - id: text-unicode-replacement-char
         name: pygrep-hooks (collection of fast, cheap, regex based pre-commit hooks.)
 
-  - repo: https://github.com/Lucas-C/pre-commit-hooks-safety
-    rev: v1.3.3
-    hooks:
-      - id: python-safety-dependencies-check
-        name: python-safety-dependencies-check (check your Python dependencies against safety-db.)
+  # - repo: https://github.com/Lucas-C/pre-commit-hooks-safety
+  #   rev: v1.3.2
+  #   hooks:  # pip install safety
+  #     - id: python-safety-dependencies-check
+  #       name: python-safety-dependencies-check (check your Python dependencies against safety-db.)
+  #       args: [--short-report]   # --full-report
+  #       verbose: true
 
   - repo: https://github.com/PyCQA/flake8
     rev: 7.0.0

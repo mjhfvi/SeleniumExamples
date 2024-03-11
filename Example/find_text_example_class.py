@@ -16,10 +16,6 @@ class TestTest01():
         self.driver = webdriver.Chrome()
         self.vars = {}
 
-    # def setup_method(self, method):
-    #     self.driver = webdriver.Chrome()
-    #     self.vars = {}
-
     def teardown_method(self):
         self.driver.quit()
 

@@ -104,4 +104,4 @@ search_text(text_information='Google',
 print('\n\n============================================\nSelenium Tests Are Done at: ',
       current_time, '\nExiting....\n============================================\n')
 sleep(2)
-chrome_driver.quit()
+chrome_driver.close()

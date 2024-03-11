@@ -1,3 +1,5 @@
+*       text=auto
 *.bat   text eol=crlf
 *.go    text eol=lf
-*.yaml    text eol=lf
+*.yaml  text eol=lf
+*.py    text diff=python eol=lf
