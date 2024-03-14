@@ -103,6 +103,7 @@ repos:
     hooks:
       - id: flake8
         name: flake8 (Flake8 is a wrapper around these tools PyFlakes, pycodestyle, McCabe script)
+    # Configure with tox.ini file in the root folder
 
   - repo: https://github.com/PyCQA/bandit
     rev: 1.7.7
