@@ -1,9 +1,15 @@
 from __future__ import annotations
 
+import logging
 import sys
 
+import coloredlogs
 import requests
-from termcolor import colored
+# import time
+
+logger = logging.getLogger(__name__)
+format = '%(asctime)s: %(message)s'
+coloredlogs.install()
 
 
 def test_api(WEBSITE_URL):
@@ -14,19 +20,17 @@ def test_api(WEBSITE_URL):
         # print(response.status_code)
 
         if response.status_code == 200:
-            print(colored('API Call Successful, Website is Reachable, Starting Tests\n',
-                  'green', attrs=['bold'],))
+            logger.info('API Call Successful, Website is Reachable')
             test_status = 'Pass'
             return test_status
         else:
-            print(colored('API Call Unsuccessful, Website is NOT Reachable, Killing Run\n',
-                  'red', attrs=['bold'],))
+            logger.error('API Call Unsuccessful, Website is NOT Reachable, Killing Run')
             exit()
-    except NameError:
-        print('An Unexpected error occurred in', __name__, 'page, with error:', NameError)
+    except Exception as ERROR:
+        logger.error('An Unexpected error occurred,', ERROR)
 
 
 if __name__ == '__main__':
     help(sys.modules['__main__'])
-    print('End of File:', __name__)
+    logger.info('End of File')
     sys.exit()
