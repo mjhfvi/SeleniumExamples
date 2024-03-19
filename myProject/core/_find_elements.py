@@ -7,10 +7,10 @@ import sys
 import coloredlogs
 # import time
 
-coloredlogs.install()
-logger = logging.getLogger(name=__name__)
-# format = "[%(filename)s:%(lineno)s - %(funcName)20s() ] %(message)s"  # "%(asctime)s: %(message)s"
-# logging.basicConfig(format=format, level=logging.DEBUG, datefmt="%H:%M:%S", filename='logging.log', filemode='a')
+# coloredlogs.install()
+format = '%(asctime)s %(name)s[%(process)d] %(levelname)s %(message)s'
+logger = logging.getLogger('Api_Requests_Log')
+coloredlogs.install(level='DEBUG', logger=logger, fmt=format)  # DEBUG, INFO, WARNING, ERROR, CRITICAL
 
 
 def find_text(search_text: str, find_element: str, element_name: str):

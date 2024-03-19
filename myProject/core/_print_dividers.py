@@ -8,10 +8,9 @@ import coloredlogs
 from colorist import Color
 # import time
 
-coloredlogs.install()
-logger = logging.getLogger(name=__name__)
-# format = "[%(filename)s:%(lineno)s - %(funcName)20s() ] %(message)s"  # "%(asctime)s: %(message)s"
-# logging.basicConfig(format=format, level=logging.DEBUG, datefmt="%H:%M:%S", filename='logging.log', filemode='a')
+format = '%(asctime)s %(name)s[%(process)d] %(levelname)s %(message)s'
+logger = logging.getLogger('Api_Requests_Log')
+coloredlogs.install(level='DEBUG', logger=logger, fmt=format)  # DEBUG, INFO, WARNING, ERROR, CRITICAL
 
 
 # --------------- imports   --------------- #

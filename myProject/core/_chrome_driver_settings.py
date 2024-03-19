@@ -1,4 +1,6 @@
 ''' chrome driver folder, TBD '''
+# Chromium Command Line Switches: https://peter.sh/experiments/chromium-command-line-switches/
+# Emulation: https://chromedevtools.github.io/devtools-protocol/tot/Emulation/
 from __future__ import annotations
 
 import logging
@@ -12,9 +14,16 @@ from selenium.webdriver.chrome.service import Service
 # from selenium.webdriver.common.by import By
 # from selenium.webdriver.common.keys import Keys
 
-logger = logging.getLogger(__name__)
-format = '%(asctime)s: %(message)s'
-coloredlogs.install()
+format = '%(asctime)s %(name)s[%(process)d] %(levelname)s %(message)s'
+logger = logging.getLogger('Driver_Settings_Log')
+coloredlogs.install(level='DEBUG', logger=logger, fmt=format)  # DEBUG, INFO, WARNING, ERROR, CRITICAL
+
+# Chrome Driver Geolocation
+coordinates = {
+    'latitude': 50.1109,
+    'longitude': 8.6821,
+    'accuracy': 100
+}
 # --------------- imports   --------------- #
 
 # CHROME_PATH = 'C:/repository/SeleniumExamples/chromedriver.exe'
@@ -25,10 +34,10 @@ USER_DATA_DIR = 'C:/Temp/SeleniumChromeProfile'
 
 def _driver() -> object:
     ''' Help chrome_driver Module: no arg yet, TBD ...'''
+    logger.info('Building Settings for Chrome Drive')
     try:
-        logger.info('Building Settings for Chrome Drive')
         # print(f"{Color.BLUE}{'DEBUG:'}{Color.OFF} Building Chrome Driver: {Color.BLUE}{__name__}{Color.OFF}")
-        # from selenium import webdriver
+        # From Selenium Import Webdriver
         chrome_options = Options()
         chrome_service = Service(CHROME_PATH)
         chrome_options.add_experimental_option('excludeSwitches', ['enable-logging'])
@@ -37,32 +46,36 @@ def _driver() -> object:
         # chrome_options.add_argument('--remote-debugging-port=9222')  #  debug Chrome remotely
         chrome_options.add_argument('--no-sandbox')  # Bypass OS security model
         chrome_options.add_argument('--disable-gpu')  # applicable to windows os only
-        # disable the default browser check on startup
-        chrome_options.add_argument('--no-default-browser-check')
+        chrome_options.add_argument('--no-default-browser-check')  # disable the default browser check on startup
         # bypass certificate errors to HTTPS or self-signed cert
         chrome_options.add_argument('--ignore-certificate-errors')
         chrome_options.add_argument('--allow-insecure-localhost')
         chrome_options.add_argument('--disable-extensions')  # disabling extensions
         chrome_options.add_argument('--disable-plugins')
-        # disable the default apps that are bundled with Chrome
-        chrome_options.add_argument('--disable-default-apps')
+        chrome_options.add_argument('--disable-translate')
+        chrome_options.add_argument('--disable-default-apps')  # disable the default apps that are bundled with Chrome
         # specify the directory where user profiles are stored
         chrome_options.add_argument('--profile-directory=Default')
-        chrome_options.add_argument('--lang=en-US')
+        chrome_options.add_argument('--lang=en-US')  # Set Browser Language, en-US
+        # chrome_options.add_argument('--default-country-code=America/Los_Angeles')
         # chrome_options.add_argument('--user-data-dir=C:\\Temp\\SeleniumChromeProfile')
-        chrome_options.add_argument('--profile-directory=Profile 1')
+        # chrome_options.add_argument('--profile-directory=Profile 1')
         chrome_options.add_argument('--start-maximized')
-        chrome_options.add_argument('--headless=new')  # disable starting browser
-        # normal(default), eager, none(Does not block WebDriver at all)
-        chrome_options.page_load_strategy = 'none'
+        chrome_options.add_argument('--deny-permission-prompts')
+        chrome_options.add_argument('--debug-print')
+        # chrome_options.add_argument('--headless')  # Disable Starting Browser
+        chrome_options.page_load_strategy = 'none'  # normal(default), eager, none(Does not block WebDriver at all)
         logger.info('Starting Chrome Driver to Work')
+
+        # ==== Initialize Selenium Web Driver ==== #
         chrome_driver = webdriver.Chrome(options=chrome_options,
                                          service=chrome_service,
                                          keep_alive=False)
         chrome_driver.refresh()
         chrome_driver.minimize_window()
         chrome_driver.implicitly_wait(10)
-        # print('chrome_driver: ', chrome_driver)
+        # chrome_driver.execute_cdp_cmd("Emulation.setGeolocationOverride", coordinates)
+
         return chrome_driver
     except Exception as ERROR:
         logger.error('An Unexpected error occurred,', ERROR)
@@ -81,7 +94,7 @@ if __name__ == '__main__':
 
 if __name__ != '__main__':
     try:
-        logger.info('Run Started From Main')
+        logger.info('Run Started From Main Script')
     except Exception as ERROR:
         logger.error('An Unexpected error occurred', ERROR)
     # finally:

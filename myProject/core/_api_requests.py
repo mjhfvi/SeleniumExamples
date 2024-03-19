@@ -7,9 +7,9 @@ import coloredlogs
 import requests
 # import time
 
-logger = logging.getLogger(__name__)
-format = '%(asctime)s: %(message)s'
-coloredlogs.install()
+format = '%(asctime)s %(name)s[%(process)d] %(levelname)s %(message)s'
+logger = logging.getLogger('Api_Requests_Log')
+coloredlogs.install(level='DEBUG', logger=logger, fmt=format)  # DEBUG, INFO, WARNING, ERROR, CRITICAL
 
 
 def test_api(WEBSITE_URL):
@@ -20,17 +20,17 @@ def test_api(WEBSITE_URL):
         # print(response.status_code)
 
         if response.status_code == 200:
-            logger.info('API Call Successful, Website is Reachable')
+            logger.info('API Request Call is Successful')
             test_status = 'Pass'
             return test_status
         else:
-            logger.error('API Call Unsuccessful, Website is NOT Reachable, Killing Run')
+            logger.error('API Request Call is Unsuccessful, Killing Run')
             exit()
     except Exception as ERROR:
         logger.error('An Unexpected error occurred,', ERROR)
 
 
 if __name__ == '__main__':
-    help(sys.modules['__main__'])
+    # help(sys.modules['__main__'])
     logger.info('End of File')
     sys.exit()
