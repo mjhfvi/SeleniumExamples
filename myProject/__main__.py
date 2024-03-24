@@ -9,8 +9,8 @@ from time import perf_counter
 
 import coloredlogs
 from core import _api_requests
-from core import _print_dividers
 from core._chrome_driver_settings import _driver
+from core._print_dividers import _dividers_main
 from dotenv import load_dotenv
 from tests import _tests01  # , _tests, _unitests
 # import threading
@@ -35,7 +35,7 @@ ELEMENT_LIST = ['.RNNXgb', '.dRYYxd']  # '.RNNXgb', '.dRYYxd', '.SDkEP'
 # ELEMENT = '.RNNXgb'
 
 
-def main_script_driver():
+def main() -> None:
     try:
         logger.info('Running Main Script Driver')
         # from selenium import webdriver
@@ -63,11 +63,11 @@ def main_script_driver():
         logger.error('An Unexpected error occurred', ERROR)
 
 
-def main_script_run(CHROME_DRIVER: object, SITE_URL):  # CHROME_ELEMENT: object, CHROME_ELEMENT_NAME: str,
+@_dividers_main
+def main_script_run(CHROME_DRIVER: object, SITE_URL: str) -> None:  # CHROME_ELEMENT: object, CHROME_ELEMENT_NAME: str,
     try:
         # Start Running Tests
-        _print_dividers.main_start_dividers()
-
+        # _print_dividers.main_start_dividers()
         _api_requests.test_api(SITE_URL)  # test website api
 
         for ELEMENT in ELEMENT_LIST:
@@ -102,7 +102,7 @@ def main_script_run(CHROME_DRIVER: object, SITE_URL):  # CHROME_ELEMENT: object,
         # for thread in threads:
             # thread.join()
 
-        _print_dividers.main_end_dividers()
+        # _print_dividers.main_end_dividers()
     except Exception as ERROR:
         logger.error('An Unexpected error occurred', ERROR)
     # finally:
@@ -112,16 +112,16 @@ def main_script_run(CHROME_DRIVER: object, SITE_URL):  # CHROME_ELEMENT: object,
 if __name__ == '__main__':
     try:
         start_time = perf_counter()
-        # os.system('cls')  # Clearing the screen
+        # os.system('cls')  # Clearing the screen, pre commit issue: B605:start_process_with_a_shell
         load_dotenv()  # take environment variables from .env.
         email = os.getenv('email')
         __author__ = 'Tzahi Cohen', email
         logger.debug(f'Author: {__author__}')
-        main_script_driver()
+        main()
         # _run_test_class()
         # help(sys.modules['__main__'])
         end_time = perf_counter()
-        print(f'Run took{end_time - start_time: 0.2f} second(s) to complete.')
+        logger.info(f'Total Run took{end_time - start_time: 0.2f} second(s) to complete.')
     except Exception as ERROR:
         logger.error('An Unexpected error occurred', ERROR)
     finally:
